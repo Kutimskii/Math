@@ -5,20 +5,24 @@ export default class MathAttack extends Character {
     super(name, type, health, level);
   }
 
-  getAttack() {
+  getAttack(cell) {
+    this.attack *= (1 - ((cell - 1) / 10));
+
+    if (this.stoned) {
+      this.attack -= (Math.log2(cell) * 5);
+    }
     return this.attack;
   }
 
-  setAttack(cell) {
-    this.attack *= (1 - ((cell - 1) / 10));
+  setAttack(value) {
+    this.attack = value;
   }
 
   getStoned() {
     return this.stoned;
   }
 
-  setStoned(cell) {
-    this.stoned = this.attack - (Math.log2(cell) * 5);
-    this.attack = this.stoned;
+  setStoned(state) {
+    this.stoned = state;
   }
 }
